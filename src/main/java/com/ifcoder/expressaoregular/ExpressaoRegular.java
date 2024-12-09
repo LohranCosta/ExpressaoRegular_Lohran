@@ -83,12 +83,11 @@ public class ExpressaoRegular {
 		EXERC_02 = BRANCOS + "^a[a-zA-Z]*a$";
 		EXERC_03 = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 
-
 		DECLARACAO = TIPOS + BRANCOS_MIN1 + IDENT;
 
 		PARAMETROS_DE_FUNCAO =
-						BRANCOS + "\\("+ BRANCOS + DECLARACAO + BRANCOS +"(," + BRANCOS
-						+ DECLARACAO + BRANCOS + ")*" +"\\)" + BRANCOS;
+						BRANCOS + "\\(" + BRANCOS + DECLARACAO + BRANCOS + "(," + BRANCOS
+										+ DECLARACAO + BRANCOS + ")*" + "\\)" + BRANCOS;
 
 		ASSINATURA_FUNCAO = BRANCOS + DECLARACAO + BRANCOS + PARAMETROS_DE_FUNCAO + BRANCOS + ";";
 
@@ -100,16 +99,20 @@ public class ExpressaoRegular {
 
 		ATRIBUICAO = IDENT + BRANCOS + "=" + BRANCOS + REAL;
 
-		ATRIBUTO = "(" + IDENT + "(\\." + IDENT + ")*)";
+		ATRIBUTO = "(" + IDENT + "(\\[" + DIGITOS + "\\])?(\\." + IDENT + "(\\[" + DIGITOS + "\\])?)*" + ")";
 
 		INDEXACAO = IDENT + "\\[" + BRANCOS + DIGITOS + BRANCOS + "\\]";
 
-		CHAMADA_METODO = IDENT + "\\(" + BRANCOS + "(" + PARAMETRO +	"(" + BRANCOS + "," + BRANCOS
+		CHAMADA_METODO = IDENT + "\\(" + BRANCOS + "(" + PARAMETRO + "(" + BRANCOS + "," + BRANCOS
 						+ PARAMETRO + ")*)?" + BRANCOS + "\\)";
 
-		EXPRESSAO_MATEMATICA = "(" + "(-?" + DIGITOS + "|" + IDENT + "|" + INDEXACAO + "|"
-						+ CHAMADA_METODO + "|" + ATRIBUTO + ")" + "(" + BRANCOS + OPERADOR_MATEMATICO + BRANCOS +
-						"(-?" + DIGITOS + "|" + IDENT + "|" + INDEXACAO + "|" + CHAMADA_METODO + "|" + ATRIBUTO + "))*" +")";
+		EXPRESSAO_MATEMATICA = "(" +
+						"(-?" + NUMEROS + "|" + "-?" + IDENT + "|" + "-?" + INDEXACAO + "|" +
+						"-?" + CHAMADA_METODO + "|" + "-?" + ATRIBUTO + ")" +
+						"(" + BRANCOS + OPERADOR_MATEMATICO + BRANCOS +
+						"(-?" + NUMEROS + "|" + "-?" + IDENT + "|" + "-?" + INDEXACAO + "|" +
+						"-?" + CHAMADA_METODO + "|" + "-?" + ATRIBUTO + "))*" +
+						")";
 	}
 
 	public void confere(String exp, String sentenca) {
